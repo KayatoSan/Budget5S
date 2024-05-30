@@ -1,0 +1,157 @@
+body {
+    height: 100vh;
+    padding: 0;
+}
+/*
+    FORCE ET HONNEUR ! 
+*/
+@media (prefers-color-scheme: dark) {
+    .footer {
+        background-color:#282936;
+        position: absolute;
+        bottom: 0;
+        margin-top:5rem;
+        width:100%;
+        height:5rem;
+        border-top: 1px solid #00000015;
+    }
+    .navbar {
+        background-color: #28293673;
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+        position: fixed;
+        z-index: 999;
+        width:100%;
+        border-bottom: 1px solid #00000015;
+        
+    }
+    .nav-clear {
+        width:100%;
+        height:5.4rem;
+        background-color:#282936;
+        margin-bottom:4rem;
+    }
+    
+    .p-megamenu-panel {
+        margin-top:1rem;
+        background-color: #282936;
+        border-radius: 5px;
+        font-size: 1.125rem;
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+        border: 1px solid #20212c;
+    }
+    
+    .p-megamenu {
+        border:0;
+        border-radius: 0;
+        background-color: #00000000;
+        height: 4rem;
+    
+    }
+    .edit-icon {
+        font-size: 1.2rem; 
+        color: #ffffffef;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .footer {
+        background-color:rgb(255, 255, 255);
+        margin-top:5rem;
+        position: absolute;
+        bottom: 0;
+        width:100%;
+        height:5rem;
+        border-top: 1px solid #00000015;
+    }
+    .navbar {
+        background-color: rgba(255, 255, 255, 0.397);
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+        position: fixed;
+        z-index: 999;
+        width:100%;
+        border-bottom: 1px solid #00000015;
+        
+    }
+    .nav-clear {
+        width:100%;
+        height:5.4rem;
+        background-color:rgb(255, 255, 255);
+        margin-bottom:4rem;
+    }
+    
+    .p-megamenu-panel {
+        margin-top:1rem;
+        background-color: rgba(255, 255, 255, 0.849);
+        border-radius: 5px;
+        font-size: 1.125rem;
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+        border: 1px solid #dfdfdf;
+    }
+    
+    .p-megamenu {
+        border:0;
+        border-radius: 0;
+        background-color: #00000000;
+        height: 4rem;
+    
+    }
+
+    .edit-icon {
+        font-size: 1.2rem; 
+        color: #20212c
+    }
+}
+
+html {
+    font-size: 14px;
+}
+
+body {
+    font-family: var(--font-family);
+    font-weight: normal;
+    background: var(--surface-ground);
+    color: var(--text-color);
+    margin:0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.p-card-content {
+    padding: 0
+}
+
+.card {
+    background: var(--surface-card);
+    padding: 1rem;
+    border-radius: 10px;
+    /* margin-bottom: 1rem; */
+    border: 1px solid rgba(92, 92, 92, 0.15) !important;
+    box-shadow: 0px 0px 5px 1px #00000005;
+}
+
+
+
+#hex-large {
+    height:100%;
+    width:3rem
+}
+
+.p-progressbar-value-animate {
+    max-width:100%
+}
+.p-progressbar-value {
+    background-color: #29c76f;
+}
+/*  "Parvum verbum ad"
+    Une personne délicieusement gentille
+*/
+.p-progressbar-perfect .p-progressbar-value {
+    background-color:royalblue;
+}
+.p-progressbar-over .p-progressbar-value {
+    background-color:red;
+}

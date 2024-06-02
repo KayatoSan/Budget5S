@@ -32,23 +32,48 @@ const Vaults = (props) => {
       (dateDue.getFullYear() - date.getFullYear()) * 12 +
       (dateDue.getMonth() - date.getMonth()) +
       1;
-    const targetMonthly = (target - rowData.prevTransactions) / countMonth;
 
-    if (target === false) {
-      return assigned;
-    } else if (assigned < targetMonthly) {
+    if (!monthlyType) {
+      const targetMonthly = (target - rowData.prevTransactions) / countMonth;
+      if (countMonth <= 0) {
+        return (
+          <>
+            <Tag
+              severity="info"
+              className="text-base font-light align-content-center"
+              value={`The due date has passed, you have transferred a total of ${
+                rowData.transactions + rowData.prevTransactions
+              } €`}
+            ></Tag>
+          </>
+        );
+      } else if (assigned < targetMonthly) {
+        return (
+          <>
+            <Tag
+              severity="danger"
+              className="text-base font-light align-content-center"
+              value={`${
+                targetMonthly - assigned
+              }€ more is needed for reach target`}
+            ></Tag>
+          </>
+        );
+      } else if (assigned >= targetMonthly) {
+        return assigned;
+      }
+    }
+    if (assigned < target) {
       return (
         <>
           <Tag
             severity="danger"
             className="text-base font-light align-content-center"
-            value={`${
-              targetMonthly - assigned
-            }€ more is needed for reach target`}
+            value={`${target - assigned}€ more is needed for reach target`}
           ></Tag>
         </>
       );
-    } else if (assigned >= targetMonthly) {
+    } else if (assigned >= target) {
       return assigned;
     }
   };
@@ -61,7 +86,7 @@ const Vaults = (props) => {
     const dateDue = new Date(rowData.dateDue);
     if (monthlyType === true) {
       if (assigned >= target) {
-        return <>OK</>;
+        return <>0</>;
       } else if (assigned < target) {
         return <>{target - assigned}</>;
       }
@@ -118,7 +143,9 @@ const Vaults = (props) => {
   const onCellEditComplete = (e) => {
     let { rowData, newValue, field, originalEvent: event } = e;
     try {
-      const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/edit/vaultcell`;
+      const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${
+        import.meta.env.VITE_BACKEND_PORT
+      }/edit/vaultcell`;
       fetch(urlAPI, {
         method: "POST",
         headers: {
@@ -146,7 +173,6 @@ const Vaults = (props) => {
         <Column field="label" header="label"></Column>
         <Column field="target" header="target"></Column>
         <Column header="due date" body={dueDate}></Column>
-
         <Column
           body={assigned}
           field="monthly.assigned"

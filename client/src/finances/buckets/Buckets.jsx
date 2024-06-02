@@ -1,9 +1,12 @@
 import { DataTable } from "primereact/datatable";
+import { ColumnGroup } from 'primereact/columngroup';
+import { Row } from 'primereact/row';
 import { Column } from "primereact/column";
 import { ProgressBar } from "primereact/progressbar";
 import { Tag } from "primereact/tag";
 import { InputNumber } from "primereact/inputnumber";
 import { Message } from "primereact/message";
+
 
 const Buckets = (props) => {
   const available = (rowData) => {
@@ -112,6 +115,72 @@ const Buckets = (props) => {
     }
   };
 
+  const footerTarget = () => {
+    const data = props.fetch
+    const calculate = data.reduce(
+      (total, objet) => total + objet.monthly.target,
+      0
+    );
+    return calculate
+  }
+
+  const footerAvailable = () => {
+    const data = props.fetch
+    const assigned = data.reduce(
+      (total, objet) => total + objet.monthly.assigned,
+      0
+    );
+    const prevAssigned = data.reduce(
+      (total, objet) => total + objet.prevAssigned,
+      0
+    );
+    const expense = data.reduce(
+      (total, objet) => total + objet.expense,
+      0
+    );
+    const prevExpense = data.reduce(
+      (total, objet) => total + objet.prevExpense,
+      0
+    );
+    const calculate = 
+      assigned +
+      prevAssigned +
+      (-expense + -prevExpense);
+
+    return calculate
+  }
+
+  const footerAssigned = () => {
+    const data = props.fetch
+    const calculate = data.reduce(
+      (total, objet) => total + objet.monthly.assigned,
+      0
+    );
+    return calculate
+  }
+
+  const footerExpense = () => {
+    const data = props.fetch
+    const calculate = data.reduce(
+      (total, objet) => total + objet.expense,
+      0
+    );
+    return calculate
+  }
+
+  const footerTable = (
+    <ColumnGroup>
+        <Row>
+            <Column  style={{ width: "13%" }} />
+            <Column footer="Totals:"  style={{ width: "40%" }} footerStyle={{ textAlign: 'right' }}  />
+            <Column footer={footerTarget} style={{ width: "18%" }} /> 
+            <Column footer={footerAssigned} style={{ width: "19%" }} /> 
+            <Column footer={footerExpense} style={{ width: "11%" }} />
+            <Column footer={footerAvailable} style={{ width: "12%" }} />
+        </Row>
+    </ColumnGroup>
+);
+
   return (
     <>
       <DataTable
@@ -119,8 +188,8 @@ const Buckets = (props) => {
         stripedRows
         value={props.fetch}
         tableStyle={{ minWidth: "50rem" }}
+        footerColumnGroup={footerTable}
       >
-        {/* <Column field="_id" header="UID"></Column> */}
         <Column field="label" style={{ width: "13%" }} header="label"></Column>
         <Column
           style={{ width: "40%" }}
@@ -154,10 +223,6 @@ const Buckets = (props) => {
           body={available}
         ></Column>
       </DataTable>
-      <div className="flex pt-6 text-lg justify-content-end">
-        <span className="font-semibold">{props.totalAssigned} €</span>&nbsp;
-        assigned
-      </div>
     </>
   );
 };

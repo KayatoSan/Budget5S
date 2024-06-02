@@ -1,6 +1,9 @@
 /public/logo.svg
 .DS_Store
 
+/client/soho-dark.css
+/client/soho-light.css
+
 # Logs
 logs
 *.log

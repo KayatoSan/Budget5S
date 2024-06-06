@@ -138,7 +138,6 @@ const createBucket = () => {
                 id="Calendar"
                 value={date}
                 onChange={(e) => setDate(e.value)}
-                showTime
                 hourFormat="24"
                 disabled={!timelimited}
               />

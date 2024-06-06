@@ -155,7 +155,6 @@ const editBucket = () => {
                 onChange={(e) =>
                   setDate(e.target.value)
                 }
-                showTime
                 hourFormat="24"
                 disabled={!timelimited}
               />

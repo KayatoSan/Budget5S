@@ -15,6 +15,7 @@ const accounts = new mongoose.Schema({
   ],
   color: { type: String, required: false }, // FOR THE STYLE
   icon: { type: String, required: false }, // FOR THE STYLE
+  assignable: {type: Boolean, required: false, default: true}
 });
 
 module.exports = mongoose.model("accounts", accounts);

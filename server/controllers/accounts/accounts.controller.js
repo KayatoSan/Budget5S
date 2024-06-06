@@ -13,6 +13,7 @@ const post = async (req, res, next) => {
       label: req.body.data.label,
       balance: req.body.data.balance,
       creationDate: Date.now(),
+      assignable: req.body.assignable,
     });
     res.redirect('/accounts/')
   } catch (err) {

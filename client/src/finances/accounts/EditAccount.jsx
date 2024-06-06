@@ -6,12 +6,16 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { InputNumber } from "primereact/inputnumber";
 import { Divider } from "primereact/divider";
+import { Checkbox } from "primereact/checkbox";
 
 const editAccount = () => {
   let { id } = useParams();
-  const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/edit/account/${id}`;
+  const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${
+    import.meta.env.VITE_BACKEND_PORT
+  }/edit/account/${id}`;
   const navigate = useNavigate();
 
+  const [assignable, setAssignable] = useState();
   const [data, setData] = useState(false);
 
   const fetchData = async () => {
@@ -41,6 +45,7 @@ const editAccount = () => {
         },
         body: JSON.stringify({
           data,
+          assignable,
         }),
       });
     } catch (err) {
@@ -51,6 +56,7 @@ const editAccount = () => {
   useEffect(() => {
     fetchData().then((data) => {
       setData(data);
+      setAssignable(data.assignable);
     });
   }, []);
   return (
@@ -61,6 +67,21 @@ const editAccount = () => {
           title="Edit your account"
           subTitle="Organize your money"
         >
+          <Divider align="center">
+            <div className="inline-flex align-items-center">
+              <b>Options</b>
+            </div>
+          </Divider>
+          <div className="flex align-items-center">
+            <Checkbox
+              inputId="assignable"
+              onChange={(e) => setAssignable(e.checked)}
+              checked={assignable}
+            ></Checkbox>
+            <label htmlFor="assignable" className="ml-2">
+              Assignable
+            </label>
+          </div>
           <Divider align="center">
             <div className="inline-flex align-items-center">
               <b>Form</b>

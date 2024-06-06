@@ -9,21 +9,23 @@ const get = async (req, res, next) => {
   } catch (err) {
     console.error(err);
   }
-}
+};
 
 const post = async (req, res, next) => {
-  const body = req.body
+  const body = req.body;
   try {
-    await dbAccounts.findOneAndUpdate({_id: req.params.id}, {
-      label: body.data.label,
-      balance: body.data.balance,
-    })
-  } catch(err) {
-    console.error(err)
+    await dbAccounts.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        label: body.data.label,
+        balance: body.data.balance,
+        assignable: body.assignable,
+      }
+    );
+  } catch (err) {
+    console.error(err);
   }
-
-}
-
+};
 
 module.exports = {
   get,

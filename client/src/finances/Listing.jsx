@@ -151,10 +151,11 @@ const Listing = (props) => {
         <div className="flex flex-grow-1 ">
           <ResumeAccounts />
         </div>{" "}
-        <div className="flex text-2xl justify-content-center align-items-center text-right">
+      </div>
+        <div className="flex text-2xl justify-content-end align-items-end text-right w-9 mb-4 mx-auto flex flex-wrap flex-wrap">
           {vaultsTotalAssigned + bucketsTotalAssigned} € assigned this month
         </div>
-      </div>
+
 
       <div className="flex flex-column justify-content-center">
         <div className="flex align-items-center justify-content-center">

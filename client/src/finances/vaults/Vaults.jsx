@@ -54,7 +54,7 @@ const Vaults = (props) => {
               severity="danger"
               className="text-base font-light align-content-center"
               value={`${
-                targetMonthly - assigned
+                (targetMonthly - assigned).toFixed(2)
               }€ more is needed for reach target`}
             ></Tag>
           </>
@@ -69,7 +69,7 @@ const Vaults = (props) => {
           <Tag
             severity="danger"
             className="text-base font-light align-content-center"
-            value={`${target - assigned}€ more is needed for reach target`}
+            value={`${(target - assigned).toFixed(2)}€ more is needed for reach target`}
           ></Tag>
         </>
       );
@@ -116,7 +116,7 @@ const Vaults = (props) => {
             severity="danger"
             className="text-base font-light align-content-center"
             value={`You need to transfer ${
-              targetMonthly - rowData.transactions
+              (targetMonthly - rowData.transactions).toFixed(2)
             } to reach the target this month`}
           ></Tag>
         </>

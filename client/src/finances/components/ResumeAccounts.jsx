@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 
+import { useTranslation } from 'react-i18next';
+
 const ResumeAccounts = () => {
+  const {t, i18n} = useTranslation()
+
   const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/all/accounts`;
   const [sumBalance, setSumBalance] = useState(0)
   const [balanceAssignable, setSumBalanceAssignable] = useState(0)
@@ -50,9 +54,9 @@ const ResumeAccounts = () => {
 
       <div className="p-card card p-3 col-12 md:col-6 lg:col-2 justify-content-between mb-1">
         <div>
-        <div className="text-800 pt-1 text-right">Total on your accounts : {sumBalance} €</div>
-        <div className="text-400 text-red-400 pt-2 text-sm text-right">Total unassignable : -{balanceUnassignable} €</div>
-        <div className="text-400 text-green-400 pt-2 pb-1 text-sm text-right">Total assignable : {balanceAssignable} €</div>
+        <div className="text-800 pt-1 text-right">{t('Total on your account')} : {sumBalance} €</div>
+        <div className="text-400 text-red-400 pt-2 text-sm text-right">{t('Total unassignable')} : -{balanceUnassignable} €</div>
+        <div className="text-400 text-green-400 pt-2 pb-1 text-sm text-right">{t('Total assignable')} : {balanceAssignable} €</div>
 
         </div>
       </div>

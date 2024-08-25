@@ -6,10 +6,14 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
+import { useTranslation } from 'react-i18next';
+
 const listTransaction = () => {
   const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/transactions/vaults/list`;
   const urlAPIAccounts = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/all/accounts`;
   const urlAPIVaults = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/vaults/list`;
+
+  const {t, i18n} = useTranslation()
 
   const [data, setData] = useState();
   const [accounts, setAccounts] = useState();
@@ -65,7 +69,7 @@ const listTransaction = () => {
           );
           window.location.reload();
         } catch (err) {
-          console.error("Une erreur s'est produite : ", err);
+          console.error("An error occurred : ", err);
         }
       },
       reject: () => {},
@@ -93,7 +97,7 @@ const listTransaction = () => {
     const account = object.accountRef;
     const result = accounts.find((data) => data._id === account);
     if (result === undefined) {
-      return <p>No longer exist</p>;
+      return <p>{t('No longer exist')}</p>;
     }
     return <p>{result && result.label}</p>;
   };
@@ -102,7 +106,7 @@ const listTransaction = () => {
     const vault = object.vaultRef;
     const result = vaults.find((data) => data._id === vault);
     if (result === undefined) {
-      return <p>No longer exist</p>;
+      return <p>{t('No longer exist')}</p>;
     }
     return <p>{result && result.label}</p>;
   };
@@ -125,25 +129,25 @@ const listTransaction = () => {
         >
           <Divider align="center">
             <div className="inline-flex align-items-center">
-              <b>Listing</b>
+              <b>{t('Listing')}</b>
             </div>
           </Divider>
           <div className="">
             <DataTable value={data} tableStyle={{ width: "100%" }}>
-              <Column field="label" header="Label"></Column>
+              <Column field="label" header={t('Label')}></Column>
 
               <Column
                 field="accountRef"
-                header="Account REF"
+                header={t('Account REF')}
                 body={accountRef}
               ></Column>
               <Column
                 field="vaultRef"
-                header="Vault REF"
+                header={t('Vault REF')}
                 body={vaultRef}
               ></Column>
-              <Column field="amount" header="amount"></Column>
-              <Column field="_id" header="Edit" body={editLink}></Column>
+              <Column field="amount" header={t('Amount')}></Column>
+              <Column field="_id" header={t('Edit')} body={editLink}></Column>
             </DataTable>
           </div>
         </Card>

@@ -13,7 +13,11 @@ import { Chip } from "primereact/chip";
 
 import { IconWallet } from "@tabler/icons-react";
 
+import { useTranslation } from 'react-i18next';
+
 const Expense = () => {
+  const {t, i18n} = useTranslation()
+
   const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/expenses/add`;
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
@@ -54,7 +58,7 @@ const Expense = () => {
         }),
       });
     } catch (err) {
-      console.error("Une erreur s'est produite : ", err);
+      console.error("An error occurred : ", err);
     }
   };
 
@@ -80,12 +84,12 @@ const Expense = () => {
       <div className="flex justify-content-center">
         <Card
           className="card w-auto"
-          title="Expense"
-          subTitle="Stamp an expense"
+          title={t('Expense')}
+          subTitle={t('Stamp an expense')}
         >
           <Divider align="left">
             <div className="inline-flex align-items-center">
-              <b>Resume</b>
+              <b>{t('Resume')}</b>
             </div>
           </Divider>
           <div className="flex-wrap w-full">
@@ -98,7 +102,7 @@ const Expense = () => {
                       <IconWallet size={18} />
                     </span>
                     <span className="ml-2 text-xl p-2">
-                      {selectedAccount.label}, the old balance switch to{" "}
+                      {selectedAccount.label}, {t('The old balance switch to')}{" "}
                       {selectedAccount.balance - formData.amount} €
                     </span>
                   </>
@@ -110,13 +114,13 @@ const Expense = () => {
           </div>
           <Divider align="left">
             <div className="inline-flex align-items-center">
-              <b>Form</b>
+              <b>{t('Form')}</b>
             </div>
           </Divider>
           <div className="gap-3 flex align-items-end flex-wrap">
             <div className="w-full md:w-auto">
               <label htmlFor="Calendar" className="block mb-2">
-                Date
+              {t('Date')}
               </label>
               <Calendar
                 className="w-full md:w-auto"
@@ -129,7 +133,7 @@ const Expense = () => {
             </div>
             <div className="w-full md:w-auto">
               <label htmlFor="label" className="block mb-2">
-                Label (only to recognize)
+              {t('Label (only to recognize')}
               </label>
               <InputText
                 className="w-full md:w-auto"
@@ -145,34 +149,34 @@ const Expense = () => {
             </div>
             <div className="w-full md:w-auto">
               <label htmlFor="DropDown" className="block mb-2">
-                Source account
+              {t('Source account')}
               </label>
               <Dropdown
                 value={selectedAccount}
                 onChange={(e) => setSelectedAccount(e.value)}
                 options={accountsData}
                 optionLabel="label"
-                placeholder="Account"
+                placeholder={t('Account')}
                 className="w-full md:w-auto"
               />
             </div>
             <div className="w-full md:w-auto">
               <label htmlFor="DropDown" className="block mb-2">
-                Bucket
+              {t('Bucket')}
               </label>
               <Dropdown
                 value={selectedBucket}
                 onChange={(e) => setSelectedBucket(e.value)}
                 options={bucketsData}
                 optionLabel="label"
-                placeholder="Bucket"
+                placeholder={t('Bucket')}
                 className="w-full md:w-auto"
               />
             </div>
 
             <div className="w-full md:w-auto">
               <label htmlFor="amount" className="block mb-2">
-                Amount
+              {t('Amount')}
               </label>
               <InputNumber
                 className="w-full md:w-auto"
@@ -190,7 +194,7 @@ const Expense = () => {
             </div>
             <Button
               className="w-full md:w-auto"
-              label="Submit"
+              label={t('Submit')}
               onClick={postData}
             ></Button>
           </div>

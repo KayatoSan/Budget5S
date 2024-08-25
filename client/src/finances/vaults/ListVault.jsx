@@ -8,9 +8,13 @@ import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
 import { IconCheck, IconX } from "@tabler/icons-react";
 
+import { useTranslation } from 'react-i18next';
+
 const listVault = () => {
   const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/vaults/list`;
   const urlAPIAccounts = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/all/accounts`;
+
+  const {t, i18n} = useTranslation()
 
   const [data, setData] = useState();
   const [accounts, setAccounts] = useState();
@@ -43,7 +47,7 @@ const listVault = () => {
 
   const confirm = (id) => {
     confirmDialog({
-      message: "Are you sure do you want to delete this vault ?",
+      message: `${t('Delete vault confirmation')}`,
       header: "Delete Confirmation",
       icon: "pi pi-info-circle",
       defaultFocus: "reject",
@@ -58,7 +62,7 @@ const listVault = () => {
           });
           window.location.reload();
         } catch (err) {
-          console.error("Une erreur s'est produite : ", err);
+          console.error("An error occurred : ", err);
         }
       },
       reject: () => {},
@@ -86,7 +90,7 @@ const listVault = () => {
     const account = object.accountLinked;
     const result = accounts.find((data) => data._id === object.accountLinked);
     if (result === undefined) {
-      return <p>No longer exist</p>;
+      return <p>{t('No longer exist')}</p>;
     }
     return <p>{result && result.label}</p>;
   };
@@ -104,29 +108,29 @@ const listVault = () => {
         <Card
           className="card w-auto"
           title="Vaults"
-          subTitle="List all your vaults and edit them"
+          subTitle={t('List vault subtitle')}
         >
           <Divider align="center">
             <div className="inline-flex align-items-center">
-              <b>Listing</b>
+              <b>{t('Listing')}</b>
             </div>
           </Divider>
           <div className="">
             <DataTable value={data} tableStyle={{ width: "100%" }}>
-              <Column field="label" header="Label"></Column>
+              <Column field="label" header={t('Label')}></Column>
               <Column
                 field="accountLinked"
-                header="Account Linked"
+                header={t('Account linked')}
                 body={accountLinked}
               ></Column>
               <Column
                 field="monthlyType"
-                header="Monthly"
+                header={t('Monthly')}
                 body={targetState}
               ></Column>
-              <Column field="dateDue" header="Date due"></Column>
-              <Column field="target" header="Target"></Column>
-              <Column field="_id" header="Edit" body={editLink}></Column>
+              <Column field="dateDue" header={t('Date due')}></Column>
+              <Column field="target" header={t('Target')}></Column>
+              <Column field="_id" header={t('Edit')} body={editLink}></Column>
             </DataTable>
           </div>
         </Card>

@@ -8,7 +8,11 @@ import { InputNumber } from "primereact/inputnumber";
 import { Divider } from "primereact/divider";
 import { Checkbox } from "primereact/checkbox";
 
+import { useTranslation } from 'react-i18next';
+
 const AddAccounts = () => {
+  const {t, i18n} = useTranslation()
+
   const navigate = useNavigate();
   const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${
     import.meta.env.VITE_BACKEND_PORT
@@ -35,7 +39,7 @@ const AddAccounts = () => {
       });
       navigate("/");
     } catch (err) {
-      console.error("Une erreur s'est produite : ", err);
+      console.error("An error occurred : ", err);
     }
   };
 
@@ -45,12 +49,12 @@ const AddAccounts = () => {
       <div className="flex justify-content-center">
         <Card
           className="card w-auto"
-          title="Add an account"
-          subTitle="Whether it's a bank account or a piggy bank"
+          title={t('Add an account')}
+          subTitle={t('Add Account Subtitle')}
         >
           <Divider align="center">
             <div className="inline-flex align-items-center">
-              <b>Options</b>
+              <b>{t('Options')}</b>
             </div>
           </Divider>
           <div className="flex align-items-center">
@@ -60,23 +64,23 @@ const AddAccounts = () => {
               checked={assignable}
             ></Checkbox>
             <label htmlFor="assignable" className="ml-2">
-              Assignable
+            {t('Assignable')}
             </label>
           </div>
           <Divider align="center">
             <div className="inline-flex align-items-center">
-              <b>Form</b>
+              <b>{t('Form')}</b>
             </div>
           </Divider>
 
           <div className="gap-3 flex align-items-end flex-wrap ">
             <div className="w-full md:w-auto">
               <label htmlFor="label" className="block mb-2 w-full md:w-auto">
-                Label of your account
+              {t('Label of your account')}
               </label>
 
               <InputText
-                placeholder="Label"
+                placeholder={t('Label')}
                 className="w-full md:w-auto"
                 id="label"
                 onChange={handleChange}
@@ -85,7 +89,7 @@ const AddAccounts = () => {
 
             <div className="w-full md:w-auto">
               <label htmlFor="balance" className="block mb-2">
-                Initial balance of your account
+              {t('Initial balance of your account')}
               </label>
 
               <InputNumber
@@ -105,7 +109,7 @@ const AddAccounts = () => {
 
             <Button
               className="w-full md:w-auto"
-              label="Submit"
+              label={t('Submit')}
               onClick={postForm}
             ></Button>
           </div>

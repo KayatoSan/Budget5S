@@ -12,8 +12,12 @@ import { Chip } from "primereact/chip";
 
 import { IconBucket, IconWallet } from "@tabler/icons-react";
 
+import { useTranslation } from 'react-i18next';
+
 const TransactionsVault = () => {
   const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/transactions/vaults`;
+
+  const {t, i18n} = useTranslation()
 
   const [formData, setFormData] = useState({});
 
@@ -55,7 +59,7 @@ const TransactionsVault = () => {
         }),
       });
     } catch (err) {
-      console.error("Une erreur s'est produite : ", err);
+      console.error("An error occurred : ", err);
     }
   };
 
@@ -89,12 +93,12 @@ const TransactionsVault = () => {
       <div className="flex justify-content-center">
         <Card
           className="card w-auto"
-          title="Transaction Vault"
-          subTitle="Saving money !"
+          title={t('Transactions vault')}
+          subTitle={t('Transactions vault subtitle')}
         >
           <Divider align="left">
             <div className="inline-flex align-items-center">
-              <b>Resume</b>
+              <b>{t('Resume')}</b>
             </div>
           </Divider>
           <div className="flex-wrap align-items-stretch w-full">
@@ -108,8 +112,8 @@ const TransactionsVault = () => {
                         <IconBucket size={18} />
                       </span>
                       <span className="ml-2 text-xl p-2">
-                        {selectedVault.label} : the old balance of{" "}
-                        {selectedVault.balance} € switch to{" "}
+                        {selectedVault.label} : {t('the old balance of')}{" "}
+                        {selectedVault.balance} € {t('switch to')}{" "}
                         {formData.amount + selectedVault.balance} €
                       </span>
                     </>
@@ -123,7 +127,7 @@ const TransactionsVault = () => {
                         <IconWallet size={18} />
                       </span>
                       <span className="ml-2 text-xl p-2">
-                        {selectedAccount.label} Switch to{" "}
+                        {selectedAccount.label} {t('switch to')}{" "}
                         {selectedAccount.balance - formData.amount}
                       </span>
                     </>
@@ -137,7 +141,7 @@ const TransactionsVault = () => {
                         <IconWallet size={18} />
                       </span>
                       <span className="ml-2 text-xl p-2">
-                        {accountLinked.label} Switch to{" "}
+                        {accountLinked.label} {t('switch to')}{" "}
                         {accountLinked.balance + formData.amount}
                       </span>
                     </>
@@ -150,13 +154,13 @@ const TransactionsVault = () => {
           </div>
           <Divider align="left">
             <div className="inline-flex align-items-center">
-              <b>Form</b>
+              <b>{t('Form')}</b>
             </div>
           </Divider>
           <div className="gap-3 flex flex-wrap">
             <div className="w-full md:w-auto">
               <label htmlFor="Calendar" className="block mb-2">
-                Date
+              {t('Date')}
               </label>
               <Calendar
                 className="w-full md:w-auto"
@@ -169,12 +173,12 @@ const TransactionsVault = () => {
             </div>
             <div className="w-full md:w-auto">
               <label htmlFor="label" className="block mb-2">
-                Label (only to recognize)
+              {t('Label (only to recognize)')}
               </label>
               <InputText
                 className="w-full md:w-auto"
                 id="label"
-                placeholder="Label"
+                placeholder={t('Label')}
                 onChange={(e) => {
                   setFormData((prevData) => ({
                     ...prevData,
@@ -185,14 +189,14 @@ const TransactionsVault = () => {
             </div>
             <div className="w-full md:w-auto">
               <label htmlFor="DropDown" className="block mb-2">
-                Source account
+              {t('Source account')}
               </label>
               <Dropdown
                 value={selectedAccount}
                 onChange={(e) => setSelectedAccount(e.value)}
                 options={accountsData}
                 optionLabel="label"
-                placeholder="Account"
+                placeholder={t('Account')}
                 className="w-full md:w-auto"
               />
             </div>
@@ -210,14 +214,14 @@ const TransactionsVault = () => {
                 onChange={selectVault}
                 options={vaultsData}
                 optionLabel="label"
-                placeholder="Vault"
+                placeholder={t('Vault')}
                 className="w-full md:w-auto"
               />
             </div>
 
             <div className="w-full h-full md:w-auto">
               <label htmlFor="" className="block mb-2">
-                Linked Account
+              {t('Linked account')}
               </label>
 
               {accountLinked ? (
@@ -238,7 +242,7 @@ const TransactionsVault = () => {
 
             <div className="w-full md:w-auto">
               <label htmlFor="amount" className="block mb-2">
-                Amount
+              {t('Amount')}
               </label>
               <InputNumber
                 className="w-full md:w-auto"
@@ -256,7 +260,7 @@ const TransactionsVault = () => {
             </div>
             <Button
               className="w-full align-self-end md:w-auto"
-              label="Submit"
+              label={t('Submit')}
               onClick={postData}
             ></Button>
           </div>

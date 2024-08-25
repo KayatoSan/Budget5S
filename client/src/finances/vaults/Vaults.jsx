@@ -4,21 +4,24 @@ import { InputNumber } from "primereact/inputnumber";
 import { Tag } from "primereact/tag";
 import { Message } from "primereact/message";
 
+import { useTranslation } from 'react-i18next';
+
 const Vaults = (props) => {
+  const {t, i18n} = useTranslation()
   const dueDate = (rowData) => {
     const date = new Date(rowData.dateDue);
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
     if (rowData.monthlyType === true) {
-      return <Message severity="info" text="Every month" />;
+      return <Message severity="info" text={t('Every month')} />;
     }
     return <Message severity="info" text={`${day}/${month}/${year}`} />;
   };
   const needed = (rowData) => {
     const calculate = rowData.target - rowData.monthly.assigned;
     if (rowData.monthly.assigned < rowData.target) {
-      return <Message severity="info" text={`${calculate} needed`} />;
+      return <Message severity="info" text={`${calculate} ${t('needed')}`} />;
     }
   };
 
@@ -41,7 +44,7 @@ const Vaults = (props) => {
             <Tag
               severity="info"
               className="text-base font-light align-content-center"
-              value={`The due date has passed, you have transferred a total of ${
+              value={`${t('The due date has passed, you have transferred a total of')} ${
                 rowData.transactions + rowData.prevTransactions
               } €`}
             ></Tag>
@@ -55,7 +58,7 @@ const Vaults = (props) => {
               className="text-base font-light align-content-center"
               value={`${
                 (targetMonthly - assigned).toFixed(2)
-              }€ more is needed for reach target`}
+              }€ ${t('more is needed for reach target')}`}
             ></Tag>
           </>
         );
@@ -69,7 +72,7 @@ const Vaults = (props) => {
           <Tag
             severity="danger"
             className="text-base font-light align-content-center"
-            value={`${(target - assigned).toFixed(2)}€ more is needed for reach target`}
+            value={`${(target - assigned).toFixed(2)}€ ${t('more is needed for reach target')}`}
           ></Tag>
         </>
       );
@@ -105,7 +108,7 @@ const Vaults = (props) => {
             <Tag
               severity="success"
               className="text-base font-light align-content-center"
-              value={`${rowData.transactions} transfered on ${targetMonthly} required this month`}
+              value={`${rowData.transactions} ${t('transfered on')} ${targetMonthly} ${t('required this month')}`}
             ></Tag>
           </>
         );
@@ -115,9 +118,9 @@ const Vaults = (props) => {
           <Tag
             severity="danger"
             className="text-base font-light align-content-center"
-            value={`You need to transfer ${
+            value={`${t('You need to transfer')} ${
               (targetMonthly - rowData.transactions).toFixed(2)
-            } to reach the target this month`}
+            } ${t('to reach the target this month')}`}
           ></Tag>
         </>
       );
@@ -159,7 +162,7 @@ const Vaults = (props) => {
         }),
       });
     } catch (err) {
-      console.error("Une erreur s'est produite : ", err);
+      console.error("An error occurred : ", err);
     }
   };
   return (
@@ -170,23 +173,23 @@ const Vaults = (props) => {
         value={props.fetch}
         tableStyle={{ minWidth: "50rem" }}
       >
-        <Column field="label" header="label"></Column>
-        <Column field="target" header="target"></Column>
-        <Column header="due date" body={dueDate}></Column>
+        <Column field="label" header={t('Label')}></Column>
+        <Column field="target" header={t('Target')}></Column>
+        <Column header={t('Due date')} body={dueDate}></Column>
         <Column
           body={assigned}
           field="monthly.assigned"
           editor={(options) => cellEditor(options)}
           onCellEditComplete={onCellEditComplete}
-          header="assigned"
+          header={t('assigned')}
         ></Column>
-        <Column header="needed" body={neededThisMonth}></Column>
-        <Column field="transactions" header="transfered"></Column>
-        <Column body={totalTransactions} header="total transfered"></Column>
+        <Column header={t('needed')} body={neededThisMonth}></Column>
+        <Column field="transactions" header={t('Transfered')}></Column>
+        <Column body={totalTransactions} header={t('Total transfered')}></Column>
       </DataTable>
       <div className="flex pt-6 text-lg justify-content-end">
         <span className="font-semibold">{props.totalAssigned} €</span>&nbsp;
-        assigned
+        {t('assigned')}
       </div>
     </>
   );

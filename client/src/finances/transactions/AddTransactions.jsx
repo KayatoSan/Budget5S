@@ -15,7 +15,11 @@ import { Message } from "primereact/message";
 
 import { IconWallet } from "@tabler/icons-react";
 
+import { useTranslation } from 'react-i18next';
+
 const Transactions = () => {
+  const {t, i18n} = useTranslation()
+
   const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/transactions/add`;
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
@@ -25,7 +29,7 @@ const Transactions = () => {
 
   const [date, setDate] = useState(new Date());
 
-  const options = ["+ Income", "- Withdrawal"];
+  const options = ["+ Income", "- Withdrawal"]; // TODO NEED TO FIX, WITH I18N !
   const [valueOptions, setValueOptions] = useState(options[0]);
 
   const fetchData = async () => {
@@ -58,7 +62,7 @@ const Transactions = () => {
         }),
       });
     } catch (err) {
-      console.error("Une erreur s'est produite : ", err);
+      console.error("An error occurred : ", err);
     }
   };
 
@@ -85,12 +89,12 @@ const Transactions = () => {
         {/* TODO Revoir le responsive design sur toutes les cards (bug mobile) */}
         <Card
           className="card w-auto max-w-max"
-          title="Transaction"
-          subTitle="Add or remove money from one of your accounts"
+          title={t('Transaction')}
+          subTitle={t('Add or remove money from one of your accounts')}
         >
           <Divider align="left">
             <div className="inline-flex align-items-center">
-              <b>Resume</b>
+              <b>{t('Resume')}</b>
             </div>
           </Divider>
 
@@ -104,8 +108,8 @@ const Transactions = () => {
                       <IconWallet size={18} />
                     </span>
                     <span className="ml-2 md:text-xl p-2">
-                      {selectedAccount.label} : the old balance of&nbsp;
-                      {selectedAccount.balance} € switch to&nbsp;
+                      {selectedAccount.label} : {t('the old balance of')}&nbsp;
+                      {selectedAccount.balance} € {t('switch to')}&nbsp;
                       {valueOptions === "+ Income"
                         ? selectedAccount.balance + formData.amount
                         : selectedAccount.balance - formData.amount}
@@ -121,14 +125,14 @@ const Transactions = () => {
 
           <Divider align="left">
             <div className="inline-flex align-items-center">
-              <b>Form</b>
+              <b>{t('Form')}</b>
             </div>
           </Divider>
 
           <div className="gap-3 flex align-items-end flex-wrap">
             <div className="w-full md:w-auto">
               <label htmlFor="Calendar" className="block mb-2">
-                Date
+              {t('Date')}
               </label>
               <Calendar
                 className="w-full md:w-auto"
@@ -142,11 +146,11 @@ const Transactions = () => {
 
             <div className="w-full md:w-auto">
               <label htmlFor="label" className="block mb-2">
-                Label (only to recognize)
+              {t('Label (only to recognize)')}
               </label>
               <InputText
                 className="w-full md:w-auto"
-                placeholder="Label"
+                placeholder={t('Label')}
                 id="label"
                 onChange={(e) => {
                   setFormData((prevData) => ({
@@ -159,7 +163,7 @@ const Transactions = () => {
 
             <div className="w-full md:w-auto">
               <label htmlFor="DropDown" className="block mb-2">
-                Account
+              {t('Account')}
               </label>
               <Dropdown
                 className="w-full md:w-auto"
@@ -167,13 +171,13 @@ const Transactions = () => {
                 onChange={(e) => setSelectedAccount(e.value)}
                 options={accountsData}
                 optionLabel="labelBalance"
-                placeholder="Account"
+                placeholder={t('Account')}
               />
             </div>
 
             <div className="w-full md:w-auto">
               <label htmlFor="amount" className="block mb-2">
-                Amount
+              {t('Amount')}
               </label>
               <InputNumber
                 className="w-full md:w-auto"
@@ -200,7 +204,7 @@ const Transactions = () => {
 
             <Button
               className="w-full md:w-auto"
-              label="Submit"
+              label={t('Submit')}
               onClick={postData}
             ></Button>
           </div>
@@ -208,7 +212,7 @@ const Transactions = () => {
             <Message
               className="mt-4"
               severity="warn"
-              text="If you want to add an expense, you should go to Add Expense section !"
+              text={t('If you want to add an expense, you should go to Add Expense section !')}
             />
           ) : null}
         </Card>

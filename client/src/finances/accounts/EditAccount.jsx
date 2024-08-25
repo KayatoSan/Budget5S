@@ -8,7 +8,11 @@ import { InputNumber } from "primereact/inputnumber";
 import { Divider } from "primereact/divider";
 import { Checkbox } from "primereact/checkbox";
 
+import { useTranslation } from 'react-i18next';
+
 const editAccount = () => {
+  const {t, i18n} = useTranslation()
+
   let { id } = useParams();
   const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${
     import.meta.env.VITE_BACKEND_PORT
@@ -49,7 +53,7 @@ const editAccount = () => {
         }),
       });
     } catch (err) {
-      console.error("Une erreur s'est produite : ", err);
+      console.error("An error occurred : ", err);
     }
   };
 
@@ -69,7 +73,7 @@ const editAccount = () => {
         >
           <Divider align="center">
             <div className="inline-flex align-items-center">
-              <b>Options</b>
+              <b>{t('Options')}</b>
             </div>
           </Divider>
           <div className="flex align-items-center">
@@ -79,22 +83,22 @@ const editAccount = () => {
               checked={assignable}
             ></Checkbox>
             <label htmlFor="assignable" className="ml-2">
-              Assignable
+            {t('Assignable')}
             </label>
           </div>
           <Divider align="center">
             <div className="inline-flex align-items-center">
-              <b>Form</b>
+              <b>{t('Form')}</b>
             </div>
           </Divider>
           <div className="gap-3 flex align-items-end flex-wrap ">
             <div className="w-full md:w-auto">
               <label htmlFor="label" className="block mb-2 w-full md:w-auto">
-                Label of your account
+              {t('Label of your account')}
               </label>
 
               <InputText
-                placeholder="Label"
+                placeholder={t('Label')}
                 className="w-full md:w-auto"
                 id="label"
                 value={data && data.label}
@@ -104,7 +108,7 @@ const editAccount = () => {
 
             <div className="w-full md:w-auto">
               <label htmlFor="balance" className="block mb-2">
-                Balance of your account
+              {t('Balance of your account')}
               </label>
 
               <InputNumber
@@ -123,7 +127,7 @@ const editAccount = () => {
           <div className="flex mt-4 justify-content-end">
             <Button
               className="w-full md:w-auto"
-              label="Submit"
+              label={t('Submit')}
               onClick={postForm}
             ></Button>
           </div>

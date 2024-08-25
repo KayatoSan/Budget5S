@@ -6,7 +6,11 @@ import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
+import { useTranslation } from 'react-i18next';
+
 const Accounts = () => {
+  const {t, i18n} = useTranslation()
+  
   const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/all/accounts`;
   const [data, setData] = useState([]);
 
@@ -22,7 +26,7 @@ const Accounts = () => {
 
   const confirm = (id) => {
     confirmDialog({
-      message: "Are you sure do you want to delete this account ?",
+      message: `${t('Delete Account Confirmation')}`,
       header: "Delete Confirmation",
       icon: "pi pi-info-circle",
       defaultFocus: "reject",
@@ -37,7 +41,7 @@ const Accounts = () => {
           });
           window.location.reload();
         } catch (err) {
-          console.error("Une erreur s'est produite : ", err);
+          console.error("An error occurred : ", err);
         }
       },
       reject: () => {},
@@ -83,23 +87,23 @@ const Accounts = () => {
       <div className="flex justify-content-center">
         <Card
           className="card w-auto"
-          title="Accounts"
-          subTitle="List all your accounts, if you want to modify the balance of yours accounts, let's add an transaction"
+          title={t('Account')}
+          subTitle={t('Account Subtitle')}
         >
           <Divider align="center">
             <div className="inline-flex align-items-center">
-              <b>Listing</b>
+              <b>{t('Listing')}</b>
             </div>
           </Divider>
           <div className="">
             <DataTable value={data} tableStyle={{ width: "100%" }}>
-              <Column field="label" header="Label"></Column>
+              <Column field="label" header={t('Label')}></Column>
               <Column
                 field="balance"
-                header="Balance"
+                header={t('Balance')}
                 body={priceBody}
               ></Column>
-              <Column field="_id" header="Edit" body={editLink}></Column>
+              <Column field="_id" header={t('Edit')} body={editLink}></Column>
             </DataTable>
           </div>
         </Card>

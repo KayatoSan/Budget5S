@@ -1,33 +1,35 @@
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { MegaMenu } from "primereact/megamenu";
 import logo from "./assets/logo.svg";
+import { useTranslation } from 'react-i18next';
 
 const Layout = () => {
   const navigate = useNavigate();
   const dark = window.matchMedia("(prefers-color-scheme: dark)");
+  const {t, i18n} = useTranslation()
 
   const items = [
     {
-      label: "Accounts",
+      label: `${t('Accounts')}`,
       items: [
         [
           {
-            label: "Management",
+            label: `${t('Management')}`,
             items: [
               {
-                label: "Listing / Edit",
+                label: `${t('Listing / Edit')}`,
                 command: () => {
                   navigate("/accounts/all");
                 },
               },
               {
-                label: "Add a account",
+                label: `${t('Add an account')}`,
                 command: () => {
                   navigate("/accounts/add");
                 },
               },
               {
-                label: "Transactions listing",
+                label: `${t('Transactions listing')}`,
                 command: () => {
                   navigate("/transactions/list");
                 },
@@ -35,10 +37,10 @@ const Layout = () => {
             ],
           },
           {
-            label: "Useful",
+            label: `${t('Useful')}`,
             items: [
               {
-                label: "Make a transaction",
+                label: `${t('Make a transaction')}`,
                 command: () => {
                   navigate("/transactions/add");
                 },
@@ -49,20 +51,20 @@ const Layout = () => {
       ],
     },
     {
-      label: "Buckets",
+      label: `${t('Buckets')}`,
       items: [
         [
           {
-            label: "Management",
+            label: `${t('Management')}`,
             items: [
               {
-                label: "Listing / Edit",
+                label: `${t('Listing / Edit')}`,
                 command: () => {
                   navigate("/buckets/list");
                 },
               },
               {
-                label: "Create a bucket",
+                label: `${t('Create a bucket')}`,
                 command: () => {
                   navigate("/bucket/create");
                 },
@@ -73,32 +75,32 @@ const Layout = () => {
       ],
     },
     {
-      label: "Vaults",
+      label: `${t('Vaults')}`,
       items: [
         [
           {
-            label: "Management",
+            label: `${t('Management')}`,
             items: [
               {
-                label: "Listing / Edit",
+                label: `${t('Listing / Edit')}`,
                 command: () => {
                   navigate("/vaults/list");
                 },
               },
               {
-                label: "Create a vault",
+                label: `${t('Create a vault')}`,
                 command: () => {
                   navigate("/vault/create");
                 },
               },
               {
-                label: "Transactions vaults",
+                label: `${t('Transactions vaults')}`,
                 command: () => {
                   navigate("/transactions/vault");
                 },
               },
               {
-                label: "Transactions listing ",
+                label: `${t('Transactions listing')}`,
                 command: () => {
                   navigate("/transactions/vault/list");
                 },
@@ -109,21 +111,21 @@ const Layout = () => {
       ],
     },
     {
-      label: "Add an expense",
+      label: `${t('Add an expense')}`,
       icon: "pi pi-calculator",
       command: () => {
         navigate("/expense/add");
       },
     },
     {
-      label: "Expenses",
+      label: `${t('Expenses')}`,
       items: [
         [
           {
-            label: "Management",
+            label: `${t('Management')}`,
             items: [
               {
-                label: "Listing / Edit",
+                label: `${t('Listing / Edit')}`,
                 command: () => {
                   navigate("/expenses/list");
                 },
@@ -134,7 +136,7 @@ const Layout = () => {
       ],
     },
     {
-      label: "Help ?",
+      label: `${t('Help ?')}`,
       icon: "pi pi-question-circle",
       command: () => {
         navigate("/help");

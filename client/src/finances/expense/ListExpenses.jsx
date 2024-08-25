@@ -7,7 +7,11 @@ import { Column } from "primereact/column";
 
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
+import { useTranslation } from 'react-i18next';
+
 const listExpenses = () => {
+  const {t, i18n} = useTranslation()
+
   const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/expenses/list`;
   const urlAPIAccounts = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/all/accounts`;
   const urlAPIBucket = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/buckets/list`;
@@ -48,7 +52,7 @@ const listExpenses = () => {
 
   const confirm = (id) => {
     confirmDialog({
-      message: "Are you sure do you want to delete this expense ?",
+      message: `${t('Delete expense confirmation')}`,
       header: "Delete Confirmation",
       icon: "pi pi-info-circle",
       defaultFocus: "reject",
@@ -63,7 +67,7 @@ const listExpenses = () => {
           });
           window.location.reload();
         } catch (err) {
-          console.error("Une erreur s'est produite : ", err);
+          console.error("An error occurred : ", err);
         }
       },
       reject: () => {},
@@ -94,7 +98,7 @@ const listExpenses = () => {
     const account = object.accountRef;
     const result = accounts.find((data) => data._id === account);
     if (result === undefined) {
-      return <p>No longer exist</p>;
+      return <p>{t('No longer exist')}</p>;
     }
     return <p>{result && result.label}</p>;
   };
@@ -103,7 +107,7 @@ const listExpenses = () => {
     const bucket = object.bucketRef;
     const result = buckets.find((data) => data._id === bucket);
     if (result === undefined) {
-      return <p>No longer exist</p>;
+      return <p>{t('No longer exist')}</p>;
     }
     return <p>{result && result.label}</p>;
   };
@@ -121,30 +125,30 @@ const listExpenses = () => {
       <div className="flex justify-content-center">
         <Card
           className="card w-auto"
-          title="Expenses"
-          subTitle="List all your expenses"
+          title={t('Expense list title')}
+          subTitle={t('Expense list subtitle')}
         >
           <Divider align="center">
             <div className="inline-flex align-items-center">
-              <b>Listing</b>
+              <b>{t('Listing')}</b>
             </div>
           </Divider>
           <div className="">
             <DataTable value={data} tableStyle={{ width: "100%" }}>
-              <Column field="date" header="Date" body={dateList}></Column>
-              <Column field="label" header="Label"></Column>
-              <Column field="amount" header="amount"></Column>
+              <Column field="date" header={t('Date')} body={dateList}></Column>
+              <Column field="label" header={t('Label')}></Column>
+              <Column field="amount" header={t('Amount')}></Column>
               <Column
                 field="bucketRef"
-                header="Bucket REF"
+                header={t('Bucket REF')}
                 body={bucketRef}
               ></Column>
               <Column
                 field="accountRef"
-                header="Account REF"
+                header={t('Account REF')}
                 body={accountRef}
               ></Column>
-              <Column field="_id" header="Edit" body={editLink}></Column>
+              <Column field="_id" header={t('Edit')} body={editLink}></Column>
             </DataTable>
           </div>
         </Card>

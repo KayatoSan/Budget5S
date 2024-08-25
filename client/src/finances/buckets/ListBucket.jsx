@@ -8,7 +8,11 @@ import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
 import { IconX } from "@tabler/icons-react";
 
+import { useTranslation } from 'react-i18next';
+
 const listBucket = () => {
+  const {t, i18n} = useTranslation()
+
   const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/buckets/list`;
   const [data, setData] = useState();
 
@@ -24,7 +28,7 @@ const listBucket = () => {
 
   const confirm = (id) => {
     confirmDialog({
-      message: "Are you sure do you want to delete this account ?",
+      message: `${t('Delete Bucket Confirmation')}`,
       header: "Delete Confirmation",
       icon: "pi pi-info-circle",
       defaultFocus: "reject",
@@ -39,7 +43,7 @@ const listBucket = () => {
           });
           window.location.reload();
         } catch (err) {
-          console.error("Une erreur s'est produite : ", err);
+          console.error("An error occurred : ", err);
         }
       },
       reject: () => {},
@@ -83,22 +87,22 @@ const listBucket = () => {
         <Card
           className="card w-auto"
           title="Buckets"
-          subTitle="List all your buckets and edit them"
+          subTitle={t('List buckets subtitle')}
         >
           <Divider align="center">
             <div className="inline-flex align-items-center">
-              <b>Listing</b>
+              <b>{t('Listing')}</b>
             </div>
           </Divider>
           <div className="">
             <DataTable value={data} tableStyle={{ width: "100%" }}>
-              <Column field="label" header="Label"></Column>
+              <Column field="label" header={t('Label')}></Column>
               <Column
                 field="defaultTarget"
-                header="Target"
+                header={t('Target')}
                 body={target}
               ></Column>
-              <Column field="_id" header="Edit" body={editLink}></Column>
+              <Column field="_id" header={t('Edit')} body={editLink}></Column>
             </DataTable>
           </div>
         </Card>

@@ -10,11 +10,15 @@ import { Divider } from "primereact/divider";
 import { Calendar } from "primereact/calendar";
 import { Checkbox } from "primereact/checkbox";
 
+import { useTranslation } from 'react-i18next';
+
 const editVault = () => {
   let { id } = useParams();
   
   const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/edit/vault/${id}`;
   const navigate = useNavigate();
+
+  const {t, i18n} = useTranslation()
 
   const [formData, setFormData] = useState({});
   const [selectedAccount, setSelectedAccount] = useState();
@@ -68,7 +72,7 @@ const editVault = () => {
         }),
       });
     } catch (err) {
-      console.error("Une erreur s'est produite : ", err);
+      console.error("An error occurred : ", err);
     }
   };
 
@@ -104,12 +108,12 @@ const editVault = () => {
       <div className="flex justify-content-center">
         <Card
           className="card w-auto"
-          title="Edit your vault"
-          subTitle="Organize your empire"
+          title={t('Edit vault title')}
+          subTitle={t('Edit vault subtitle')}
         >
           <Divider align="center">
             <div className="inline-flex align-items-center">
-              <b>Options</b>
+              <b>{t('Options')}</b>
             </div>
           </Divider>
 
@@ -122,14 +126,14 @@ const editVault = () => {
                   setDateDue(!e.checked);
                 }}
                 checked={monthly}
-                tooltip="Save an amount every month"
+                tooltip={t('Save an amount every month')}
               ></Checkbox>
               <label htmlFor="monthly" className="ml-2">
-                Monthly
+              {t('Monthly')}
               </label>
             </div>
             <Divider layout="vertical" className="hidden md:flex">
-              <b>OR</b>
+              <b>{t('OR')}</b>
             </Divider>
             <div className="flex align-items-center">
               <Checkbox
@@ -139,28 +143,28 @@ const editVault = () => {
                   setDateDue(e.checked);
                 }}
                 checked={dateDue}
-                tooltip="Set an date due for your goal !"
+                tooltip={t('Set an date due for your goal !')}
               ></Checkbox>
               <label htmlFor="dateDue" className="ml-2">
-                Date Due
+              {t('Date due')}
               </label>
             </div>
           </div>
 
           <Divider align="center">
             <div className="inline-flex align-items-center">
-              <b>Form</b>
+              <b>{t('Form')}</b>
             </div>
           </Divider>
 
           <div className="gap-3 flex align-items-end flex-wrap ">
             <div className="w-full md:w-auto">
               <label htmlFor="label" className="block mb-2 w-full md:w-auto">
-                Label of your vault
+              {t('Label of your vault')}
               </label>
 
               <InputText
-                placeholder="Label"
+                placeholder={t('Label')}
                 className="w-full md:w-auto"
                 id="label"
                 value={selectedVault.label ?? ""}
@@ -175,7 +179,7 @@ const editVault = () => {
 
             <div className="w-full md:w-auto">
               <label htmlFor="DropDown" className="block mb-2">
-                New source account
+              {t('New source account')}
               </label>
               <Dropdown
                 value={accountLinked}
@@ -190,9 +194,9 @@ const editVault = () => {
             <div className="w-full md:w-auto">
               <label htmlFor="target" className="block mb-2">
                 {monthly ? (
-                  <p>Target to reach every month</p>
+                  <p>{t('Target to reach every month')}</p>
                 ) : (
-                  <p>Target global</p>
+                  <p>{t('Target global')}</p>
                 )}
               </label>
 
@@ -214,7 +218,7 @@ const editVault = () => {
 
             <div className="w-full md:w-auto">
               <label htmlFor="Calendar" className="block mb-2">
-                Date due
+              {t('Date due')}
               </label>
               <Calendar
                 className="w-full md:w-auto"
@@ -231,7 +235,7 @@ const editVault = () => {
           <div className="flex mt-4 justify-content-end">
             <Button
               className="w-full md:w-auto"
-              label="Submit"
+              label={t('Submit')}
               onClick={postData}
             ></Button>
           </div>

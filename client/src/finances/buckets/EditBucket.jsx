@@ -9,7 +9,11 @@ import { Divider } from "primereact/divider";
 import { Calendar } from "primereact/calendar";
 import { Checkbox } from "primereact/checkbox";
 
+import { useTranslation } from 'react-i18next';
+
 const editBucket = () => {
+  const {t, i18n} = useTranslation()
+
   let { id } = useParams();
   
   const urlAPI = `${import.meta.env.VITE_BACKEND_ADRESS}:${import.meta.env.VITE_BACKEND_PORT}/edit/bucket/${id}`;
@@ -54,7 +58,7 @@ const editBucket = () => {
         }),
       });
     } catch (err) {
-      console.error("Une erreur s'est produite : ", err);
+      console.error("An error occurred : ", err);
     }
   };
 
@@ -72,12 +76,12 @@ const editBucket = () => {
       <div className="flex justify-content-center">
         <Card
           className="card w-auto"
-          title="Edit your bucket"
-          subTitle="Organize your money"
+          title={t('Edit bucket title')}
+          subTitle={t('Edit bucket subtitle')}
         >
           <Divider align="center">
             <div className="inline-flex align-items-center">
-              <b>Options</b>
+              <b>{t('Options')}</b>
             </div>
           </Divider>
           <div className="w-full my-4 md:w-auto flex flex-wrap  gap-3">
@@ -88,7 +92,7 @@ const editBucket = () => {
                 checked={targeted}
               ></Checkbox>
               <label htmlFor="targeted" className="ml-2">
-                Targeted
+              {t('Targeted')}
               </label>
             </div>
 
@@ -99,25 +103,25 @@ const editBucket = () => {
                 checked={timelimited}
               ></Checkbox>
               <label htmlFor="timelimited" className="ml-2">
-                Time Limited
+              {t('Time limited')}
               </label>
             </div>
           </div>
 
           <Divider align="center">
             <div className="inline-flex align-items-center">
-              <b>Form</b>
+              <b>{t('Form')}</b>
             </div>
           </Divider>
 
           <div className="gap-3 flex align-items-end flex-wrap ">
             <div className="w-full md:w-auto">
               <label htmlFor="label" className="block mb-2 w-full md:w-auto">
-                Label of your vault
+              {t('Label of your vault')}
               </label>
 
               <InputText
-                placeholder="Label"
+                placeholder={t('Label')}
                 className="w-full md:w-auto"
                 id="label"
                 value={data && data.label}
@@ -127,7 +131,7 @@ const editBucket = () => {
 
             <div className="w-full md:w-auto">
               <label htmlFor="target" className="block mb-2">
-                Target to reach every month
+              {t('Target to reach every month')}
               </label>
 
               <InputNumber
@@ -146,7 +150,7 @@ const editBucket = () => {
 
             <div className="w-full md:w-auto">
               <label htmlFor="Calendar" className="block mb-2">
-                Date limit
+              {t('Date limit')}
               </label>
               <Calendar
                 className="w-full md:w-auto"
@@ -164,7 +168,7 @@ const editBucket = () => {
           <div className="flex mt-4 justify-content-end">
             <Button
               className="w-full md:w-auto"
-              label="Submit"
+              label={t('Submit')}
               onClick={postForm}
             ></Button>
           </div>

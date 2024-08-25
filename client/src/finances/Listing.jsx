@@ -8,7 +8,10 @@ import { Divider } from "primereact/divider";
 
 import { IconChevronRight, IconChevronLeft } from "@tabler/icons-react";
 
+import { useTranslation } from 'react-i18next';
+
 const Listing = (props) => {
+  const {t, i18n} = useTranslation()
   const [monthSelected, setMonthSelected] = useState(new Date().getMonth() + 1);
   const [yearSelected, setYearSelected] = useState(new Date().getFullYear());
   const [beforeMonth, setBeforeMonth] = useState([]);
@@ -153,7 +156,7 @@ const Listing = (props) => {
         </div>{" "}
       </div>
         <div className="flex text-2xl justify-content-end align-items-end text-right w-9 mb-4 mx-auto flex flex-wrap flex-wrap">
-          {vaultsTotalAssigned + bucketsTotalAssigned} € assigned this month
+          {vaultsTotalAssigned + bucketsTotalAssigned} € {t('assigned this month')}
         </div>
 
 
@@ -161,8 +164,8 @@ const Listing = (props) => {
         <div className="flex align-items-center justify-content-center">
           <Card
             className="card w-9 "
-            title="🥛 Buckets"
-            subTitle="Don't be shy, spend it !"
+            title={t('List bucket title')}
+            subTitle={t('List bucket subtitle')}
           >
             <div className="pt-4">
               <Buckets
@@ -176,8 +179,8 @@ const Listing = (props) => {
         <div className="flex align-items-center justify-content-center pt-4">
           <Card
             className="card w-9 justify-content-center"
-            title="🏦 Vaults"
-            subTitle="For emperors, build your empire"
+            title={t('List vault title')}
+            subTitle={t('List vault subtitle')}
           >
             <div className="pt-4">
               <Vaults fetch={vaults} totalAssigned={vaultsTotalAssigned} />

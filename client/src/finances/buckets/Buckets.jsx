@@ -7,8 +7,12 @@ import { Tag } from "primereact/tag";
 import { InputNumber } from "primereact/inputnumber";
 import { Message } from "primereact/message";
 
+import { useTranslation } from 'react-i18next';
+
 
 const Buckets = (props) => {
+  const {t, i18n} = useTranslation()
+  
   const available = (rowData) => {
     const calculate =
       rowData.monthly.assigned +
@@ -32,7 +36,7 @@ const Buckets = (props) => {
           <Tag
             severity="danger"
             className="text-base font-light align-content-center"
-            value={`${needed}€ more is needed for reach target`}
+            value={`${needed}€ ${t('more is needed for reach target')}`}
           ></Tag>
         </>
       );
@@ -50,7 +54,7 @@ const Buckets = (props) => {
         <Tag
           severity="success"
           className="text-base font-light align-content-center"
-          value={`target isn't required`}
+          value={t("target isn't required")}
         ></Tag>
       </>
     );
@@ -59,7 +63,7 @@ const Buckets = (props) => {
   const progressBar = (rowData) => {
     const calculate = (rowData.expense / rowData.monthly.assigned) * 100;
     if (rowData.monthly.assigned === 0) {
-      return <Message text="You must assign an amount" />;
+      return <Message text={t('You must assign an amount')} />;
     } else if (isNaN(calculate)) {
       return <ProgressBar value={0}></ProgressBar>;
     } else if (calculate > 100) {
@@ -111,7 +115,7 @@ const Buckets = (props) => {
         }),
       });
     } catch (err) {
-      console.error("Une erreur s'est produite : ", err);
+      console.error("An error occured : ", err);
     }
   };
 
@@ -190,10 +194,10 @@ const Buckets = (props) => {
         tableStyle={{ minWidth: "50rem" }}
         footerColumnGroup={footerTable}
       >
-        <Column field="label" style={{ width: "13%" }} header="label"></Column>
+        <Column field="label" style={{ width: "13%" }} header={t('Label')}></Column>
         <Column
           style={{ width: "40%" }}
-          header="% spended / assigned this month"
+          header={t('spended / assigned this month')}
           body={progressBar}
         ></Column>
         <Column
@@ -202,7 +206,7 @@ const Buckets = (props) => {
           style={{ width: "18%" }}
           editor={(options) => cellEditor(options)}
           onCellEditComplete={onCellEditComplete}
-          header="target"
+          header={t('Target')}
         ></Column>
         <Column
           body={assigned}
@@ -210,16 +214,16 @@ const Buckets = (props) => {
           style={{ width: "19%" }}
           editor={(options) => cellEditor(options)}
           onCellEditComplete={onCellEditComplete}
-          header="assigned"
+          header={t('assigned')}
         ></Column>
         <Column
           style={{ width: "11%" }}
           field="expense"
-          header="expense"
+          header={t('Expense')}
         ></Column>
         <Column
           style={{ width: "12%" }}
-          header="available"
+          header={t('Available')}
           body={available}
         ></Column>
       </DataTable>
